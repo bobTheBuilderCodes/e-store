@@ -9,7 +9,7 @@ import Promotions from "../../components/listings/Promotions";
 
 const ListingsPage = () => {
   return (
-    <div className="bg-gray-50 min-h-screen w-screen">
+    <div className="bg-orange-100 min-h-screen w-screen">
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-6">
         <BannerCarousel />

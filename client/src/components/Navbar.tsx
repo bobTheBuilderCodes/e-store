@@ -1,11 +1,24 @@
-import React, { useState } from "react";
+import { Moon, Sun } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import { FiSearch, FiMenu, FiX, FiUser, FiPlusCircle } from "react-icons/fi";
 
 const Navbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const [darkMode, setDarkMode] = useState(localStorage.getItem("theme") === "dark");
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
+
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+    <header className="bg-orange-500 shadow-sm sticky top-0 z-50">
       {/* Top Navbar */}
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
@@ -34,7 +47,7 @@ const Navbar: React.FC = () => {
             <FiUser className="mr-1" /> Login / Register
           </button>
 
-          <button className="hidden font-black bg-green-600 md:flex items-center text-white text-sm px-4 py-2 rounded-lg hover:bg-green-700 transition">
+          <button className="hidden font-black bg-green-600 md:flex items-center text-gray-600 text-sm px-4 py-2 rounded-lg hover:bg-green-700 transition">
             <FiPlusCircle className="mr-1" /> Sell
           </button>
 
@@ -90,6 +103,12 @@ const Navbar: React.FC = () => {
           <button className="block w-full text-left px-4 py-2 text-white bg-green-600 rounded-lg font-medium hover:bg-green-700">
             <FiPlusCircle className="inline mr-1" /> Sell
           </button>
+          <button
+          onClick={() => setDarkMode(!darkMode)}
+          className="p-2 rounded-full bg-gray-200 dark:bg-gray-700"
+        >
+          {darkMode ? <Sun className="text-yellow-400" size={18} /> : <Moon className="text-gray-800" size={18} />}
+        </button>
         </div>
       )}
     </header>

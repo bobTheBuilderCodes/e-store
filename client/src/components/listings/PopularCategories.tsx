@@ -15,7 +15,7 @@ const PopularCategories = () => {
         {categories.map((cat) => (
           <div
             key={cat.name}
-            className="flex flex-col items-center bg-white border rounded-xl py-5 shadow-sm hover:shadow-md cursor-pointer"
+            className="flex flex-col items-center bg-white rounded-xl py-5 shadow-sm hover:shadow-md cursor-pointer"
           >
             <div className="text-2xl text-blue-600 mb-2">{cat.icon}</div>
             <p className="text-sm font-medium">{cat.name}</p>

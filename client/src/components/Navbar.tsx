@@ -12,23 +12,16 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-8">
+            {/* Logo */}
             <div className="flex items-center gap-2">
               <ShoppingCart className="w-8 h-8 text-slate-900" />
               <span className="text-2xl font-bold text-slate-900">e-store</span>
             </div>
 
-            <div className="hidden lg:flex items-center gap-6">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  className="text-slate-700 hover:text-slate-900 font-medium transition-colors duration-200"
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
+            {/* ❌ Removed desktop categories — they’ll only show on mobile now */}
           </div>
 
+          {/* Search bar (desktop only) */}
           <div className="hidden md:flex flex-1 max-w-xl mx-8">
             <div className="relative w-full">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -42,6 +35,7 @@ export function Navbar() {
             </div>
           </div>
 
+          {/* Icons and buttons */}
           <div className="flex items-center gap-3">
             <button className="hidden md:flex items-center gap-2 p-2 hover:bg-slate-100 rounded-lg transition-colors duration-200">
               <Heart className="w-5 h-5 text-slate-700" />
@@ -57,6 +51,7 @@ export function Navbar() {
               <span className="font-medium">Sign In</span>
             </button>
 
+            {/* Mobile menu button */}
             <button
               className="lg:hidden p-2"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -70,6 +65,7 @@ export function Navbar() {
           </div>
         </div>
 
+        {/* Mobile search */}
         <div className="md:hidden py-3">
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -84,6 +80,7 @@ export function Navbar() {
         </div>
       </div>
 
+      {/* ✅ Mobile categories & menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-slate-200 bg-white">
           <div className="px-4 py-4 space-y-3">
@@ -101,10 +98,10 @@ export function Navbar() {
                 <span>Wishlist</span>
               </button>
               <button className="flex items-center gap-2 px-4 py-2 hover:bg-slate-100 rounded-lg transition-colors duration-200">
-                <ShoppingCart className="w-5 h-5 text-slate-700" />
+                <ShoppingCart className="w-5 h-5 text-slate-100" />
                 <span>Cart (3)</span>
               </button>
-              <button className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-900 text-white rounded-lg">
+              <button className="flex items-center justify-center gap-2 px-4 py-3 bg-green-900 text-white rounded-lg">
                 <User className="w-5 h-5" />
                 <span className="font-medium">Sign In</span>
               </button>

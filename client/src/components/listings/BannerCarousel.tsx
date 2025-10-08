@@ -1,103 +1,104 @@
-import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from 'react';
 
-const banners = [
+interface Slide {
+  id: number;
+  title: string;
+  subtitle: string;
+  image: string;
+  cta: string;
+  backgroundColor: string;
+}
+
+const slides: Slide[] = [
   {
     id: 1,
-    image:
-      "https://images.pexels.com/photos/298864/pexels-photo-298864.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    title: "Buy & Sell Anything Hassle-Free",
-    subtitle: "Find great deals on electronics, fashion, cars, and more near you.",
-    cta: "Start Shopping",
+    title: 'Summer Sale Up to 70% Off',
+    subtitle: 'Get ready for summer with amazing deals on fashion & accessories',
+    image: 'https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg',
+    cta: 'Shop Now',
+    backgroundColor: 'from-orange-500 to-pink-500'
   },
   {
     id: 2,
-    image:
-      "https://images.pexels.com/photos/3945651/pexels-photo-3945651.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    title: "Turn Your Items Into Cash",
-    subtitle: "Post your ad today and reach thousands of buyers instantly.",
-    cta: "Post an Ad",
+    title: 'New Tech Arrivals',
+    subtitle: 'Discover the latest gadgets and electronics at unbeatable prices',
+    image: 'https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg',
+    cta: 'Explore Tech',
+    backgroundColor: 'from-blue-600 to-cyan-500'
   },
   {
     id: 3,
-    image:
-      "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    title: "Shop Smarter, Live Better",
-    subtitle: "Discover trusted sellers and amazing bargains every day.",
-    cta: "Explore Listings",
-  },
+    title: 'Home Makeover Essentials',
+    subtitle: 'Transform your space with our curated home & garden collection',
+    image: 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg',
+    cta: 'Browse Collection',
+    backgroundColor: 'from-emerald-600 to-teal-500'
+  }
 ];
 
-export const BannerCarousel: React.FC = () => {
-  const [current, setCurrent] = useState(0);
-  const [paused, setPaused] = useState(false);
+export function HeroCarousel() {
+  const [currentSlide, setCurrentSlide] = useState(0);
 
- 
-  // Auto-slide effect
   useEffect(() => {
-    if (paused) return; // pause on hover
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev === banners.length - 1 ? 0 : prev + 1));
-    }, 5000); // every 5 seconds
-    return () => clearInterval(interval);
-  }, [paused]);
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+
 
   return (
-    <div
-      className="relative w-full h-[400px] md:h-[500px] overflow-hidden rounded-2xl shadow-lg"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      <AnimatePresence mode="wait">
-        {banners.map(
-          (banner, index) =>
-            index === current && (
-              <motion.div
-                key={banner.id}
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 1.05 }}
-                transition={{ duration: 0.8 }}
-                className="absolute inset-0 w-full h-full"
-              >
-                <img
-                  src={banner.image}
-                  alt={banner.title}
-                  className="w-full h-full object-cover"
-                />
+    <div className="relative h-96 md:h-[500px] overflow-hidden rounded-2xl">
+      {slides.map((slide, index) => (
+        <div
+          key={slide.id}
+          className={`absolute inset-0 transition-opacity duration-700 ${
+            index === currentSlide ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          <div className={`absolute inset-0 bg-gradient-to-r ${slide.backgroundColor}`}>
+            <img
+              src={slide.image}
+              alt={slide.title}
+              className="w-full h-full object-cover mix-blend-overlay opacity-40"
+            />
+          </div>
 
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+          <div className="relative h-full flex items-center">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+              <div className="max-w-2xl">
+                <h2 className="text-4xl md:text-6xl font-bold text-white mb-4 leading-tight">
+                  {slide.title}
+                </h2>
+                <p className="text-xl md:text-2xl text-white/90 mb-8">
+                  {slide.subtitle}
+                </p>
+                <button className="px-8 py-4 bg-white text-slate-900 font-bold rounded-xl hover:bg-slate-100 transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105">
+                  {slide.cta}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
 
-                {/* Text Content */}
-                <div className="absolute top-1/2 left-8 md:left-16 transform -translate-y-1/2 text-white max-w-md space-y-4">
-                  <h2 className="text-2xl md:text-4xl font-bold leading-snug drop-shadow-lg">
-                    {banner.title}
-                  </h2>
-                  <p className="text-sm md:text-base text-gray-200 drop-shadow-md">
-                    {banner.subtitle}
-                  </p>
-                  <button className="mt-4 px-5 py-2 bg-yellow-400 text-black font-medium rounded-full hover:bg-yellow-300 transition">
-                    {banner.cta}
-                  </button>
-                </div>
-              </motion.div>
-            )
-        )}
-      </AnimatePresence>
+      
 
-      {/* Dots */}
-      <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 flex gap-2">
-        {banners.map((_, idx) => (
-          <div
-            key={idx}
-            className={`w-3 h-3 rounded-full cursor-pointer transition-all ${
-              idx === current ? "bg-yellow-400 scale-110" : "bg-gray-300"
+      
+
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              index === currentSlide ? 'w-8 bg-white' : 'w-2 bg-white/50'
             }`}
-            onClick={() => setCurrent(idx)}
           />
         ))}
       </div>
     </div>
   );
-};
+}

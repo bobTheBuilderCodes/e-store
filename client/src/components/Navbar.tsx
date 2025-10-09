@@ -1,9 +1,11 @@
 import { Search, ShoppingCart, User, Heart, Menu, X } from 'lucide-react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate()
 
   const categories = ['Electronics', 'Fashion', 'Home & Garden', 'Sports', 'Beauty', 'Books'];
 
@@ -46,9 +48,9 @@ export function Navbar() {
                 3
               </span>
             </button>
-            <button className="hidden md:flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors duration-200">
+            <button onClick={()=>navigate(`admin`)} className="hidden md:flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors duration-200">
               <User className="w-5 h-5" />
-              <span className="font-medium">Sign In</span>
+              <span className="font-medium">Admin</span>
             </button>
 
             {/* Mobile menu button */}
@@ -101,9 +103,9 @@ export function Navbar() {
                 <ShoppingCart className="w-5 h-5 text-slate-100" />
                 <span>Cart (3)</span>
               </button>
-              <button className="flex items-center justify-center gap-2 px-4 py-3 bg-green-900 text-white rounded-lg">
+              <button onClick={()=>navigate(`admin`)} className="flex items-center justify-center gap-2 px-4 py-3 bg-green-900 text-white rounded-lg">
                 <User className="w-5 h-5" />
-                <span className="font-medium">Sign In</span>
+                <span className="font-medium">Admin</span>
               </button>
             </div>
           </div>

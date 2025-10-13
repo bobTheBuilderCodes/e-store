@@ -45,7 +45,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-200 flex">
-      {/* Sidebar */}
+      {/* Sidebar for new dashboard */}
       <aside className="w-64 h-screen sticky top-7 mb-4 bg-[#2a2a2a] text-white rounded-3xl m-4 p-6  flex-col hidden lg:flex ">
         <div className="flex items-center gap-3 mb-8">
           <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
@@ -107,7 +107,7 @@ function App() {
           <span>Log Out</span>
         </a>
       </aside>
-
+ 
       {/* Main Content */}
       <main className="flex-1 p-4 lg:p-8 overflow-auto">
         <div className="max-w-7xl mx-auto">
